@@ -18,6 +18,8 @@ import { getAllAssets } from "services/getAssets";
 import LoaderApp from "components/loaderApp";
 import GUIView from "./guiView/guiView";
 import TabularView from "./tabularView/tabularView";
+import { getAllTenants, getDistinctOrganisations } from "services/getUsers";
+import { connect } from "services/assetDbCall";
 
 const styles = {
   boxBorder: {
@@ -51,9 +53,20 @@ class ViewData extends Form {
 
   async componentDidMount() {
     try {
-      const { data } = await getAllAssets();
-      this.setState({ assetData: data, loading: false });
-    } catch (error) {}
+      
+      if(this.props.user.role === "senior"){
+         let  {data}  = await getAllAssets();
+         this.setState({ loading: false, assetData:  data  });
+      } else {
+        let {data: assetData} = await getAllTenants(); 
+        // let {data1} = await getDistinctOrganisations();
+        
+        console.log("hi");
+        this.setState({ loading: false, assetData });
+      }
+      
+      
+    } catch (error) {console.log(error);}
   }
 
   handleViewChange = () => {
@@ -81,7 +94,7 @@ class ViewData extends Form {
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={8} lg={8}>
                         <Typography component="h5" variant="h5">
-                          View Executive data
+                          View Employees Data
                         </Typography>
                       </Grid>
 
@@ -121,18 +134,18 @@ class ViewData extends Form {
                       >
                         <InsertChartIcon className="icon-background" />
                       </Button>
-                      <Button
+                      {user.role === "senior" && (<Button
                         className="button-background"
                         variant="contained"
                         color="secondary"
                         onClick={this.handleViewChange}
                       >
                         <GridOnIcon className="icon-background" />
-                      </Button>
+                      </Button>)}
                     </ButtonGroup>
                   </div>
                   <div>
-                    {view ? <GUIView data={assetData} user={user}/> : <TabularView data={assetData} user={user} />}
+                    {view ? <GUIView user={user}/> : <TabularView data={assetData} user={user} />}
                   </div>
                   <br />
                 </Box>

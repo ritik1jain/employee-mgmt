@@ -50,7 +50,7 @@ class AssetSubCategory extends Component {
                     "_"
                   )}`}
                 >
-                  <ListItemText primary={item} />
+                  <ListItemText primary={item.name} />
                   <ListItemIcon>
                     <NavigateNextIcon />
                   </ListItemIcon>

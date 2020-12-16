@@ -4,8 +4,8 @@ import CreateAsset from "./components/createAsset";
 
 import NotFound from "components/pageNotFound";
 import EditProfile from "components/editProfile";
-// import AddUsers from "./components/addUsers/addUsers";
-// import UsersList from "./components/userList";
+import Organizations from "./components/orgComponents/organizations";
+import UsersList from "./components/tenantsList";
 import ViewData from "../common/viewData/viewData";
 // import Reports from "./components/auditReport";
 import UploadData from "./components/uploadData";
@@ -25,19 +25,19 @@ class SeniorUserDS extends Component {
       <DashboardLayout user={user}>
         <Switch>
           <Route path="/dashboard/search" component={SearchAsset} />
-          <Route
-            path="/dashboard/viewData/:id"
+          <Route exact
+            path="/dashboard/view/:role/:id"
             render={props => <AssetInformation user={user} {...props} />}
           />
-          <Route
+          {/* <Route
             path="/dashboard/viewData/:category/:subcategory"
             component={AssetList}
+          /> */}
+          <Route exact
+            path="/dashboard/viewData/category/:category"
+            render={props => <AssetList user={user} {...props} />}
           />
-          <Route
-            path="/dashboard/viewData/:category"
-            component={AssetSubCategoryList}
-          />
-          <Route
+          <Route exact
             path="/dashboard/viewData"
             render={props => <ViewData user={user} {...props} />}
           />
@@ -46,15 +46,15 @@ class SeniorUserDS extends Component {
             render={props => <UploadData user={user} {...props} />}
           />
           {/* <Route path="/dashboard/reports" component={Reports} /> */}
-          {/* <Route
-            path="/dashboard/addUsers"
-            render={props => <AddUsers user={user} {...props} />}
+          <Route
+            path="/dashboard/organizations"
+            render={props => <Organizations user={user} {...props} />}
           />
           <Route
-            path="/dashboard/usersList"
+            path="/dashboard/tenantsList"
             render={props => <UsersList user={user} {...props} />}
 
-          /> */}
+          />
           <Route
             path="/dashboard/createAsset"
             render={props => <CreateAsset user={user} {...props} />}
@@ -62,7 +62,7 @@ class SeniorUserDS extends Component {
           {/* <Route path="/dashboard/guide" component={Guide} /> */}
           <Route exact path="/dashboard/editprofile" component={EditProfile} />
           <Route exact path="/dashboard/" component={Home} />
-          {/* <Route path="/dashboard/qrList" component={QRCodeList} /> */}
+          <Route path="/dashboard/qrList" component={QRCodeList} />
           <Route component={NotFound} />
         </Switch>
       </DashboardLayout>

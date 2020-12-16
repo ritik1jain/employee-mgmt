@@ -9,8 +9,10 @@ import {
   ListItemIcon
 } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import { getAssetsSubCategory } from "services/getAssets";
+import { getAllAssets, getAssetsSubCategory } from "services/getAssets";
 import LoaderApp from "components/loaderApp";
+import { getTenantsByOrganisation} from "services/getUsers";
+import { connect } from "services/assetDbCall";
 
 class AssetList extends Component {
   state = {
@@ -22,40 +24,78 @@ class AssetList extends Component {
 
   async componentDidMount() {
     try {
-      const { category, subcategory } = this.props.match.params;
-      const { data } = await getAssetsSubCategory(category, subcategory);
-      this.setState({
-        result: data,
-        category: category,
-        loading: false,
-        subcategory: subcategory
-      });
-    } catch (error) {}
+      const { category } = this.props.match.params;
+      
+      if(this.props.user.role === "senior"){
+        const { data } = await getAssetsSubCategory(category);
+        this.setState({
+          result: data,
+          category: category,
+          loading: false
+        });
+      } else {
+        const { data } = await getTenantsByOrganisation(category);
+        // console.log(data);
+        // const company = await connect(`${category}-db`);
+        // console.log(company);
+        
+        let data1;
+        await connect(`${category}-db`)
+        .then(async  () => {
+          data1 = await getAllAssets();
+          console.log(data1.data);
+           
+          // data = [...data, ...data1]
+        })
+        .then(() => {
+          this.setState(
+              {
+              result: [...data,...data1.data],
+              category: category,
+              loading: false
+            })
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        console.log(this.state)
+        // this.setState(
+        //   {
+        //   result: [...data,...data1.data],
+        //   category: category,
+        //   loading: false
+        // },()=> {console.log(this.state)});
+        
+      }
+      // const {data1} = await getTenantsByOrganisation(category)
+      
+    } catch (error) { console.log(error)}
   }
 
   get assetsList() {
-    const { result, category, loading, subcategory } = this.state;
+    const { result, category, loading  } = this.state;
     if (loading) return <LoaderApp />;
 
     return (
       <Fragment>
         <Typography component="p" variant="p">
-          Asset List
+          Employee List
         </Typography>
         <Typography component="p" variant="p">
           Total: <b>{result.length}</b>
         </Typography>
         <List>
           {result.map(item => {
+            // console.log(item);
             return (
               <Paper>
                 <ListItem
                   key={item._id}
                   component={Link}
                   style={{ color: "black" }}
-                  to={`/dashboard/viewData/${category}/${subcategory}/${item._id}`}
+                  to={`/dashboard/view/${item.role}/${item._id}`}
                 >
-                  <ListItemText primary={item.description} />
+                  <ListItemText primary={item.name} />
                   <ListItemIcon>
                     <NavigateNextIcon />
                   </ListItemIcon>

@@ -66,15 +66,15 @@ class App extends Component {
                           {...props}
                         />
                       );
-                    if (user.role === "executive")
-                      return (
-                        <JuniorUserDashboard
-                          roleValue={this.state.user.role}
-                          user={this.state.user}
-                          {...props}
-                        />
-                      );
-                    if (user.role === "HR")
+                    // if (user.role === "executive")
+                    //   return (
+                    //     <JuniorUserDashboard
+                    //       roleValue={this.state.user.role}
+                    //       user={this.state.user}
+                    //       {...props}
+                    //     />
+                    //   );
+                    if (user.role === "senior")
                       return (
                         <SeniorUserDashboard
                           roleValue={this.state.user.role}

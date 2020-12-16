@@ -56,7 +56,7 @@ class Code extends Component {
     if (loading) return <LoaderApp />;
 
     return (
-      <Fragment>
+      <Fragment> 
         <br />
         <br />
         <div id="printme">
@@ -79,13 +79,13 @@ class Code extends Component {
                       >
                         <div style={{ fontSize: 12 }}>
                           <div>
-                            <b>{asset._id}</b>
+                            <b>{asset.employee_id}</b>
                           </div>
                           <div>
-                            <b>{asset.description}</b>
+                            <b>{asset.name}</b>
                           </div>
                           <div>
-                            <b>{asset.category}</b>
+                            <b>{asset.designation}</b>
                           </div>
                         </div>
                       </Grid>

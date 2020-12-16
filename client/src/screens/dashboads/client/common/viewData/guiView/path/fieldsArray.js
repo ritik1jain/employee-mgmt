@@ -1,35 +1,47 @@
 export let assetInfoArray = [
   {
-    value: "exeName",
+    value: "employee_id",
+    helperText: "Employee Id"
+  },
+  {
+    value: "name",
     helperText: "Name"
   },
   {
-    value: "exeEmail",
-    helperText: "Email"
-  },
-  {
-    value: "exeContact",
-    helperText: "Contact"
-  },
-  {
-    value: "exeAddress",
-    helperText: "Address"
-  },
-  {
-    value: "panNumber",
-    helperText: "Pan Number"
+    value: "company_name",
+    helperText: "Company"
   },
   {
     value: "designation",
     helperText: "Designation"
   },
   {
-    value: "projectName",
+    value: "address",
+    helperText: "Address"
+  },
+  {
+    value: "project",
     helperText: "Project"
   },
   {
-    value: "remark",
-    helperText: "Remarks"
+    value: "department",
+    helperText: "Department"
+  },
+  {
+    value: "personal_email",
+    helperText: "Email"
+  },
+  {
+    value: "company_assigned_email",
+    helperText: "Company Assigned Email"
+  },
+  {
+    value: "dob",
+    helperText: "DOB"
+  },
+  {
+    value: "pan_no",
+    helperText: "Pan Number"
   }
 ];
   // {
@@ -129,7 +141,44 @@ export let assetInfoArray = [
   //   helperText: "Purchase Value"
   // }
 
-
+  export let hrInfoArray = [
+    {
+      value: "name",
+      helperText: "Name"
+    },
+    {
+      value: "companyName",
+      helperText: "Company"
+    },
+    {
+      value: "designation",
+      helperText: "Designation"
+    },
+    {
+      value: "address",
+      helperText: "Address"
+    },
+    {
+      value: "email",
+      helperText: "Email"
+    },
+    {
+      value: "orgEmail",
+      helperText: "Organisation Email"
+    },
+    {
+      value: "contact",
+      helperText: "Contact"
+    },
+    {
+      value: "role",
+      helperText: "Role"
+    },
+    {
+      value: "panNumber",
+      helperText: "Pan Number"
+    }
+  ];
 
 export let juniorAndAuditorAssetInfo = [
   {

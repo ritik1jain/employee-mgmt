@@ -48,7 +48,7 @@ export function ListRootDrawerItems() {
           <ListItemIcon>
             <PeopleIcon />
           </ListItemIcon>
-          <ListItemText primary="Add HR" />
+          <ListItemText primary="Add Organisation" />
         </ListItem>
         <ListItem
           button
@@ -60,7 +60,7 @@ export function ListRootDrawerItems() {
           <ListItemIcon>
             <BusinessIcon />
           </ListItemIcon>
-          <ListItemText primary="HR List" />
+          <ListItemText primary="Organisation's List" />
         </ListItem>
         <ListItem
         button
@@ -74,6 +74,19 @@ export function ListRootDrawerItems() {
         </ListItemIcon>
         <ListItemText primary="QR Codes" />
       </ListItem>
+      <ListItem
+        button
+        component={Link}
+        to="/dashboard/view"
+        selected={selectedIndex === 5}
+        onClick={event => handleListItemClick(event, 5)}
+      >
+        <ListItemIcon>
+          <PageviewIcon />
+        </ListItemIcon>
+        <ListItemText primary="View Organisations" />
+      </ListItem>
+      
         {/* <ListItem
           button
           component={Link}
@@ -123,30 +136,30 @@ export function ListSeniorDrawerItems() {
           </ListItemIcon>
           <ListItemText primary="Add Executive" />
         </ListItem>
-      {/* <ListItem
+      <ListItem
         button
         component={Link}
-        to="/dashboard/addUsers"
+        to="/dashboard/organizations"
         selected={selectedIndex === 2}
         onClick={event => handleListItemClick(event, 2)}
       >
         <ListItemIcon>
           <PersonAddIcon />
         </ListItemIcon>
-        <ListItemText primary="Add Executives" />
+        <ListItemText primary="Add HR" />
       </ListItem>
       <ListItem
         button
         component={Link}
-        to="/dashboard/usersList"
+        to="/dashboard/tenantsList"
         selected={selectedIndex === 3}
         onClick={event => handleListItemClick(event, 3)}
       >
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Executives List" />
-      </ListItem> */}
+        <ListItemText primary="HR List" />
+      </ListItem>
       {/* <ListItem
         button
         component={Link}
@@ -193,9 +206,9 @@ export function ListSeniorDrawerItems() {
         <ListItemIcon>
           <SearchRoundedIcon />
         </ListItemIcon>
-        <ListItemText primary="Search" />
+        <ListItemText primary="Search Executives" />
       </ListItem>
-      {/* <ListItem
+      <ListItem
         button
         component={Link}
         to="/dashboard/qrList"
@@ -206,7 +219,7 @@ export function ListSeniorDrawerItems() {
           <CropFreeIcon />
         </ListItemIcon>
         <ListItemText primary="QR Codes" />
-      </ListItem> */}
+      </ListItem>
       {/* <ListItem
         button
         component={Link}

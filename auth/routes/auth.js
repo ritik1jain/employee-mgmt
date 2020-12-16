@@ -21,10 +21,11 @@ router.post("/", async (req, res) => {
     return res.status(400).send({ err: "Your account access is disabled" });
 
   // Check password
-  const isPasswordValid = await bcrypt.compare(
-    req.body.password,
-    tenant.password
-  );
+  const isPasswordValid = req.body.password == tenant.password;
+  // await bcrypt.compare(
+  //   req.body.password,
+  //   tenant.password
+  // );
   if (!isPasswordValid)
     return res.status(400).send({ err: "Invalid email or password" });
 

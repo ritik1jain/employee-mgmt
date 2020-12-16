@@ -1,43 +1,52 @@
 export let uploadDataFieldsArray = [
   {
-    value: "Executive ID",
+    value: "employee_id",
   },
   {
-    value: "Name",
+    value: "name",
   },
   {
-    value: "Email",
+    value: "company"
   },
   {
-    value: "Contact",
+    value: "designation"
   },
   {
-    value: "Address",
+    value: "address",
   },
   {
-    value: "Pan Number",
+    value: "project",
   },
   {
-    value: "Designation",
+    value: "department",
   },
   {
-    value: "Project Name",
+    value: "personal_email",
   },
   {
-    value: "Registered By",
+    value: "company_assigned_email",
   },
   {
-    value: "Executive Status",
+    value: "dob",
   },
   {
-    value: "CompanyId",
+    value: "pan_no",
   },
-  {
-    value: "User Role",
-  },
-  {
-    value: "Remark",
-  }
+  // {
+  //   value: "registered_by",
+  // }
+  // {
+  //   value: "Executive Status",
+  // },
+  // {
+  //   value: "CompanyId",
+  // },
+  // {
+  //   value: "User Role",
+  // },
+  // {
+  //   value: "Remark",
+  // }
 ];
 
 export let juniorAndAuditorFields = [

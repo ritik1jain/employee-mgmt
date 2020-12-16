@@ -46,7 +46,7 @@ class CardComponent extends Component {
       <Grid item lg={3} sm={6} md={4} xs={12}>
         <Card className={classes.card} elevation={4}>
           <Link
-            to={`/dashboard/viewData/${category}`}
+            to={`/dashboard/viewData/category/${category}`}
             className={classes.textDeco}
           >
             <CardActionArea>

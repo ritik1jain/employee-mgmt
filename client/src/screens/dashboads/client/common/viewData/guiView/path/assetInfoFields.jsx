@@ -5,7 +5,8 @@ import {
   assetInfoArray,
   juniorRemarksArray,
   auditorRemarksArray,
-  juniorAndAuditorAssetInfo
+  juniorAndAuditorAssetInfo,
+  hrInfoArray
 } from "./fieldsArray";
 
 class AssetInfoFields extends Component {
@@ -15,19 +16,19 @@ class AssetInfoFields extends Component {
 
   componentDidMount() {
     const { role } = this.props.user;
-    if (role !== "senior") {
+    if (role !== "senior" || role !== "root") {
       this.setState({ readStatus: !this.state.readStatus });
     }
   }
 
   render() {
-    const { handleOnChange, assetData, user } = this.props;
+    const { handleOnChange, assetData, user,role } = this.props;
     const { readStatus } = this.state;
+    console.log(role);
     return (
       <Fragment>
         <Grid container spacing={3}>
-          {user.role === 'senior' && (
-            assetInfoArray.map(item => {
+          { role === "senior" ? hrInfoArray.map(item => {
               return (
                 <Grid item xs={6} md={4} lg={3}>
                   <InputField
@@ -41,70 +42,22 @@ class AssetInfoFields extends Component {
                 </Grid>
               );
             })
-          )}
-          {(user.role === 'auditor' || user.role === 'junior') && (
-            juniorAndAuditorAssetInfo.map(item => {
-              return (
-                <Grid item xs={6} md={4} lg={3}>
-                  <InputField
-                    id="standard-read-only-input"
-                    value={assetData[item.value]}
-                    helperText={item.helperText}
-                    InputProps={{ readOnly: readStatus }}
-                    name={item.value}
-                    onChange={handleOnChange}
-                  />
-                </Grid>
-              );
-            })
-          )}
+          :  assetInfoArray.map(item => {
+            return (
+              <Grid item xs={6} md={4} lg={3}>
+                <InputField
+                  id="standard-read-only-input"
+                  value={assetData[item.value]}
+                  helperText={item.helperText}
+                  InputProps={{ readOnly: readStatus }}
+                  name={item.value}
+                  onChange={handleOnChange}
+                />
+              </Grid>
+            );
+          })
+            }
         </Grid>
-
-        {/* Junior Remarks */}
-        {(user.role === "junior" || user.role === "senior") && (
-          <Fragment>
-            <Grid container spacing={3}>
-              {juniorRemarksArray.map(item => {
-                return (
-                  <Grid item xs={12} md={12} lg={4}>
-                    <InputField
-                      className="remark-field-background"
-                      id="standard-read-only-input"
-                      placeholder="Add Remarks if any"
-                      onChange={handleOnChange}
-                      value={assetData[item.value]}
-                      name={[item.value]}
-                      InputProps={{ readOnly: !readStatus }}
-                    />
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Fragment>
-        )}
-
-        {/* Auditor Remarks */}
-        {(user.role === "auditor" || user.role === "senior") && (
-          <Fragment>
-            <Grid container spacing={3}>
-              {auditorRemarksArray.map(item => {
-                return (
-                  <Grid item xs={12} md={12} lg={4}>
-                    <InputField
-                      className="auditorRemark-field-background"
-                      id="standard-read-only-input"
-                      placeholder="Add Remarks if any"
-                      value={assetData[item.value]}
-                      onChange={handleOnChange}
-                      name={item.value}
-                      InputProps={{ readOnly: !readStatus }}
-                    />
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Fragment>
-        )}
       </Fragment>
     );
   }

@@ -25,6 +25,59 @@ router.get("/app/:id", auth, async (req, res) => {
   }
 });
 
+// Get Employees distinctly by department
+router.get("/distinctdepartment", async (req, res) => {
+  try {
+    const data = await Employee.find().select("-__v").distinct("department");
+
+    res.send(data);
+  } catch (error) {
+    res.status(500).send({ err: "Request failed" });
+  }
+});
+
+// Get subdepartment distinct Employees for a specific department
+router.get("/distinctSubdepartment/:department", auth, async (req, res) => {
+  const department = req.params.department.replace(/_/g, " ");
+  try {
+    const data = await Employee.find({ department: department })
+      .select("-__v")
+      .distinct("sub_department");
+
+    res.send(data);
+  } catch (error) {
+    res.status(500).send({ err: "Request failed" });
+  }
+});
+
+// For getting all Employees of a specific department
+router.get("/Employeelist/:department", auth, async (req, res) => {
+  const department = req.params.department;
+  try {
+    const data = await Employee.find({ department: department }).select("-__v");
+    res.send(data);
+  } catch (error) {
+    res.status(500).send({ err: "Request failed" });
+  }
+});
+
+// Get subdepartment Employees of a specific department
+router.get("/Employeelist/:department/:subdepartment", auth, async (req, res) => {
+  const department = req.params.department.replace(/_/g, " ");
+  const sub_department = req.params.subdepartment.replace(/_/g, " ");
+  try {
+    const data = await Employee.find({
+      department: department,
+      sub_department: sub_department,
+    }).select("-__v -date");
+
+    res.send(data);
+  } catch (error) {
+    res.status(500).send({ err: "Request failed" });
+  }
+});
+
+
 // For getting an Employee by _id
 router.get("/getEmployeeById/:id", auth, async (req, res) => {
   const { id } = req.params;

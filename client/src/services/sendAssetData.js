@@ -1,7 +1,7 @@
 import http from "./httpServices";
 import config from "../config";
 
-const apiUrlToSaveAssets = config.apiUrl + "/saveAssets";
+const apiUrlToSaveAssets = config.apiUrl + "/saveEmployees";
 
 export function saveAssetsData(data) {
   const result = http.post(apiUrlToSaveAssets, data);

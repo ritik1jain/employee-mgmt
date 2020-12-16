@@ -49,7 +49,7 @@ class Search extends Form {
                 {searchResults.map((item) => {
                   return (
                     <SearchCard
-                    name={item.exeName}
+                    name={item.name}
                       id={item._id}
                     />
                   );

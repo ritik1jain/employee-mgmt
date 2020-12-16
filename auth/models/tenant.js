@@ -11,11 +11,15 @@ const tenantSchema = new mongoose.Schema({
     type: String,
     minlength: 3,
   },
-  panNumber: {
+  orgEmail: {
     type: String,
     minlength: 3,
   },
-  orgEmail: {
+  orgDatabase: {
+    type: String,
+    minlength: 3,
+  },
+  panNumber: {
     type: String,
     minlength: 3,
   },
@@ -42,10 +46,6 @@ const tenantSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
-  },
-  orgDatabase: {
-    type: String,
-    minlength: 3,
   },
   name: {
     type: String,

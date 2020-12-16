@@ -7,7 +7,7 @@ const { Employee, validateEmployeeData, singleEmployee } = require("../models/em
 
 router.post("/createNew", auth, async (req, res) => {
   let data = req.body;
-  data.employeeCreatedBy = "Ritik";
+  data.employeeCreatedBy = req.user.name;
 
   const { error } = singleEmployee(data);
   // console.log(error.details);
@@ -25,6 +25,7 @@ router.post("/createNew", auth, async (req, res) => {
       err: "Failed to a add Employee",
     });
   }
+  // cponsole.log("h");
 });
 
 // Routes to save Employees list recieved from the client
@@ -60,7 +61,7 @@ router.put("/edit/:id", auth, async (req, res) => {
   try {
     const newEmployeeData = await Employee.findOneAndUpdate(
       { _id: id },
-      {
+      { 
         $set: newData,
       },
       { new: true }

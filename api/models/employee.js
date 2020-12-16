@@ -11,14 +11,14 @@ const employeeSchema = new mongoose.Schema({
   designation: { type: String, default: null, required: true },
   address: { type: String, default: null, required: true },
   project: { type: String, default: null, required: true },
-  department: { type: String, default: null, required: true },
+  department: { type: String, default: "other", required: true },
   personal_email: { type: String, default: null, required: true },
   company_assigned_email: {
     type: String,
     default: null,
     required: true
   },
-  dob: { type: Date, default: null, required: true },
+  dob: { type: String, default: null, required: true },
   pan_no: { type: String, default: null, required: true },
   employeeCreatedBy: { type: String, default: null },
   
@@ -43,9 +43,9 @@ function validateEmployeeData(employeeData) {
       company_assigned_email: Joi.string().required(),
       department: Joi.string().required(),
       personal_email: Joi.string().required(),
-      dob: Joi.string(),
+      dob: Joi.string().required(),
       pan_no: Joi.string().required(),
-      employeeCreatedBy: Joi.string().required(),
+      employeeCreatedBy: Joi.string(),
       
     })
   );
@@ -63,9 +63,9 @@ function singleEmployee(single) {
     company_assigned_email: Joi.string().required(),
     department: Joi.string().required(),
     personal_email: Joi.string().required(),
-    dob: Joi.string(),
+    dob: Joi.string().required(),
     pan_no: Joi.string().required(),
-    employeeCreatedBy: Joi.string().required(),
+    employeeCreatedBy: Joi.string(),
       
   });
 

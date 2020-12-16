@@ -28,6 +28,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { options } from "./fieldsArray";
 import LoaderApp from "components/loaderApp";
+import { getTenantById} from "services/getUsers";
+import {connect} from "services/assetDbCall";
 
 const imageUploadUrl = config.apiUrl + "/imageUpload";
 const imageUploadUrlAuditor = config.apiUrl + "/imageUpload/auditorFileUpload";
@@ -46,11 +48,12 @@ class AssetInformation extends Form {
 
   async componentDidMount() {
     try {
-      const { id: exeId } = this.props.match.params;
-      const { data: assetDataFrom } = await getAssetById(exeId);
-      this.setState({
+      const { id: _id, role: role } = this.props.match.params;
+      // console.log(role);
+      const { data: assetDataFrom } = role !== "senior" ? await getAssetById(_id) : await connect("hr").then(() => getTenantById(_id)) ;
+      this.setState({ 
         data: assetDataFrom[0],
-        id: exeId,
+        id: _id,
         selected: assetDataFrom[0].assetTags,
         loading: false,
       });
@@ -162,6 +165,7 @@ class AssetInformation extends Form {
     const { verifiedStatus, imageUri, imageUriByAuditor } = this.state.data;
     const selected = this.state.selected;
     const { user } = this.props;
+    const {role} = this.props.match.params;
     if (loading) return <LoaderApp />;
 
     return (
@@ -180,9 +184,9 @@ class AssetInformation extends Form {
               <Grid container direction="column">
                 <Grid container direction="row" justify="space-between">
                   <Grid item>
-                    {/* <div id="printme">
+                    {user.role === "root" && <div id="printme">
                       <QRCodeGenerator id={id} keyValue={dbName} />
-                    </div> */}
+                    </div>}
                     <button onClick={() => this.printOrder()}>Print</button>
                     {user.role === "senior" && (
                       <div className="upload-btn-style">
@@ -194,7 +198,7 @@ class AssetInformation extends Form {
                         />
                       </div>
                     )}
-                    {user.role === "auditor" && (
+                    {/* {user.role === "auditor" && (
                       <div className="upload-btn-style">
                         <ImageUpload
                           onChangeHandler={this.onChangeHandler}
@@ -203,7 +207,7 @@ class AssetInformation extends Form {
                           imageSet={this.state.selectedFile}
                         />
                       </div>
-                    )}
+                    )} */}
                   </Grid>
                   <Grid item>
                     <ModalImage
@@ -213,7 +217,7 @@ class AssetInformation extends Form {
                       alt="Image Preview"
                     />
                   </Grid>
-                  <Grid item>
+                  {/* <Grid item>
                     <p>Auditor Uploaded Image</p>
                     <ModalImage
                       className="image-upload-style"
@@ -221,7 +225,7 @@ class AssetInformation extends Form {
                       large={imageUriByAuditor}
                       alt="Image Preview"
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <br />
                 <Grid
@@ -245,7 +249,7 @@ class AssetInformation extends Form {
                       />
                     </Grid>
                   )}
-                  {(user.role === "junior" || user.role === "senior") && (
+                  {/* {(user.role === "junior" || user.role === "senior") && (
                     <Grid item lg={4} xs={6} md={4}>
                       <TextField
                         error
@@ -258,8 +262,8 @@ class AssetInformation extends Form {
                         fullWidth
                       />
                     </Grid>
-                  )}
-                  <Grid item>
+                  )} */}
+                  {/* <Grid item>
                     <Typography
                       variant="overline"
                       style={{ fontWeight: "500", fontSize: 15 }}
@@ -272,7 +276,7 @@ class AssetInformation extends Form {
                       }
                       checked={verifiedStatus}
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <br />
                 <Grid>
@@ -280,6 +284,7 @@ class AssetInformation extends Form {
                     assetData={this.state.data}
                     handleOnChange={this.handleOnChange}
                     user={user}
+                    role={role}
                   />
                 </Grid>
                 <br />
@@ -295,6 +300,11 @@ class AssetInformation extends Form {
                     </Button>
                   </Grid>
                   {user.role === "senior" && (
+                    <Grid item>
+                      <Dialog onClick={this.deleteAssetById} />
+                    </Grid>
+                  )}
+                  {user.role === "root" && (
                     <Grid item>
                       <Dialog onClick={this.deleteAssetById} />
                     </Grid>

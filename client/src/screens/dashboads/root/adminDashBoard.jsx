@@ -10,6 +10,9 @@ import Reports from "./components/reports";
 import DashboardLayout from "../../../components/dashboard/dashboardLayout";
 import TenantsList from "./components/tenantsList";
 import Organizations from "./components/orgComponents/organizations";
+import ViewData from "../client/common/viewData/viewData";
+import AssetList from "../client/common/viewData/guiView/path/2-assetList";
+import AssetInformation from "../client/common/viewData/guiView/path/3-assetInformation";
 
 class AdminDashBoard extends Component {
   state = {};
@@ -26,6 +29,24 @@ class AdminDashBoard extends Component {
             path="/dashboard/tenantsList"
             render={props => <TenantsList user={user} {...props} />}
           />
+          <Route exact
+            path="/dashboard/view"
+            render={props => <ViewData user={user} {...props} />}
+          />
+          
+          <Route exact
+            path="/dashboard/viewData/category/:category"
+            render={props => <AssetList user={user} {...props} />}
+          />
+          
+          <Route exact
+          path="/dashboard/view/:role/:id"
+          render={props => <AssetInformation user={user} {...props} />}
+        />
+        {/* <Route
+            path="/dashboard/viewData/:category/:subcategory"
+            component={AssetList}
+          /> */}
           <Route exact path="/dashboard/" component={Home} />
           <Route component={NotFound} />
         </Switch>

@@ -12,7 +12,7 @@ const auth = require("../middleware/auth");
 // Local imports
 const sendMail = require("../services/mailSender");
 
-router.post("/", auth, async (req, res) => {
+router.post("/",auth, async (req, res) => {
   // To prevent tenants with similar email-id
   let tenant = await Tenant.findOne({ email: req.body.email });
   if (tenant) return res.status(500).send({ res: "Tenant already registered" });
@@ -29,7 +29,7 @@ router.post("/", auth, async (req, res) => {
     orgEmail: req.body.orgEmail,
     userType: req.body.userType,
     contact: req.body.contact,
-    orgDatabase:
+    orgDatabase: req.user.role === "senior" ? req.user.orgDatabase :  
       req.body.companyName.toString().replace(/ /g, "").toLowerCase() + "-db",
   };
 

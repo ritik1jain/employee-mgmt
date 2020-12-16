@@ -83,25 +83,25 @@ const UploadDataTable = ({ user, data }) => {
                       key={item.exeId}
                       style={index % 2 === 0 ? null : styles.tableCell}
                     >
-                      <TableCell align="center">{item.exeId}</TableCell>
+                      <TableCell align="center">{item.employee_id}</TableCell>
                       <TableCell align="center">
-                        {item.exeName}
+                        {item.name}
                       </TableCell>
                       <TableCell align="center">
-                        {item.exeEmail}
-                      </TableCell>
-                      <TableCell align="center">{item.exeContact}</TableCell>
-                      <TableCell align="center">{item.exeAddress}</TableCell>
-                      <TableCell align="center">
-                        {item.panNumber}
+                        {item.company_name}
                       </TableCell>
                       <TableCell align="center">{item.designation}</TableCell>
-                      <TableCell align="center">{item.projectName}</TableCell>
-                      <TableCell align="center">{item.registeredBy}</TableCell>
-                      <TableCell align="center">{item.exeStatus}</TableCell>
-                      <TableCell align="center">{item.companyId}</TableCell>
-                      <TableCell align="center">{item.userRole}</TableCell>
-                      <TableCell align="center">{item.remark}</TableCell>
+                      <TableCell align="center">{item.address}</TableCell>
+                      <TableCell align="center">
+                        {item.project}
+                      </TableCell>
+                      <TableCell align="center">{item.department}</TableCell>
+                      <TableCell align="center">{item.personal_email}</TableCell>
+                      <TableCell align="center">{item.company_assigned_email}</TableCell>
+                      <TableCell align="center">{item.dob}</TableCell>
+                      <TableCell align="center">{item.pan_no}</TableCell>
+                      {/* <TableCell align="center">{item.employeeCreatedBy}</TableCell> */}
+                      {/* <TableCell align="center">{item.remark}</TableCell> */}
                       {/* <TableCell align="center">{item.service_tax}</TableCell>
                       <TableCell align="center">{item.other_charges}</TableCell>
                       <TableCell align="center">
