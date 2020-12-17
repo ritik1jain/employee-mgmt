@@ -35,44 +35,29 @@ class AssetList extends Component {
         });
       } else {
         const { data } = await getTenantsByOrganisation(category);
-        // console.log(data);
-        // const company = await connect(`${category}-db`);
-        // console.log(company);
-        
-        let data1;
+        // let data1;
         await connect(`${category}-db`)
         .then(async  () => {
-          data1 = await getAllAssets();
-          console.log(data1.data);
-           
-          // data = [...data, ...data1]
-        })
-        .then(() => {
+        const  data1 = await getAllAssets();
+          // console.log(data1.data);
           this.setState(
-              {
-              result: [...data,...data1.data],
-              category: category,
-              loading: false
-            })
+            {
+            result: [...data,...data1.data],
+            category: category,
+            loading: false
+          },() => {console.log(this.state)})
         })
         .catch((err) => {
           console.log(err);
         });
-        console.log(this.state)
-        // this.setState(
-        //   {
-        //   result: [...data,...data1.data],
-        //   category: category,
-        //   loading: false
-        // },()=> {console.log(this.state)});
+        // console.log(this.state)
         
       }
-      // const {data1} = await getTenantsByOrganisation(category)
       
     } catch (error) { console.log(error)}
   }
 
-  get assetsList() {
+get assetsList() {
     const { result, category, loading  } = this.state;
     if (loading) return <LoaderApp />;
 
