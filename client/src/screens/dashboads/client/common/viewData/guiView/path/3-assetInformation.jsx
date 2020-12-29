@@ -29,6 +29,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { options } from "./fieldsArray";
 import LoaderApp from "components/loaderApp";
 import { getTenantById} from "services/getUsers";
+import {deleteHr} from "services/deleteHr";
 import {connect} from "services/assetDbCall";
 
 const imageUploadUrl = config.apiUrl + "/imageUpload";
@@ -137,6 +138,20 @@ class AssetInformation extends Form {
       toast.error(data.res);
     }
   };
+  deleteHrById = async () => {
+    try {
+      const data = await deleteHr(this.state.id);
+      if (data.status === 200) {
+        toast.info(data.data.res);
+        setTimeout(() => {
+          this.props.history.goBack();
+        }, 1700);
+      }
+    } catch (error) {
+      const { data } = error.response;
+      toast.error(data.res);
+    }
+  };
 
   handleChangeSwitch = () => {
     const data = { ...this.state.data };
@@ -166,6 +181,7 @@ class AssetInformation extends Form {
     const selected = this.state.selected;
     const { user } = this.props;
     const {role} = this.props.match.params;
+    console.log(role);
     if (loading) return <LoaderApp />;
 
     return (
@@ -299,14 +315,13 @@ class AssetInformation extends Form {
                       Save
                     </Button>
                   </Grid>
-                  {user.role === "senior" && (
+                  {role !== "senior" ? (
                     <Grid item>
-                      <Dialog onClick={this.deleteAssetById} />
+                      <Dialog role={role} onClick={this.deleteAssetById} />
                     </Grid>
-                  )}
-                  {user.role === "root" && (
+                  ) : (
                     <Grid item>
-                      <Dialog onClick={this.deleteAssetById} />
+                      <Dialog role={role} onClick={this.deleteHrById} />
                     </Grid>
                   )}
                 </Grid>

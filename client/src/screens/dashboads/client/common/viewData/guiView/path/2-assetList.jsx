@@ -36,23 +36,25 @@ class AssetList extends Component {
       } else {
         const { data } = await getTenantsByOrganisation(category);
         // let data1;
-        await connect(`${category}-db`)
-        .then(async  () => {
+        setImmediate(async() => {await connect(`${category}-db`)
         const  data1 = await getAllAssets();
           // console.log(data1.data);
-          this.setState(
-            {
-            result: [...data,...data1.data],
-            category: category,
-            loading: false
-          },() => {console.log(this.state)})
+          setImmediate(()=>
+          {
+            this.setState(() => {
+            return {
+              result: [...data,...data1.data],
+              category: category,
+              loading: false
+            }
+          }
+          )})
+          
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        }
         // console.log(this.state)
         
-      }
+      
       
     } catch (error) { console.log(error)}
   }
@@ -78,7 +80,7 @@ get assetsList() {
                   key={item._id}
                   component={Link}
                   style={{ color: "black" }}
-                  to={`/dashboard/view/${item.role}/${item._id}`}
+                  to={`/dashboard/view/${item.role ? item.role : "employee"}/${item._id}`}
                 >
                   <ListItemText primary={item.name} />
                   <ListItemIcon>

@@ -16,5 +16,5 @@ function connect(dbName) {
 }
 
 module.exports = {
-  connect
+  connect,
 };

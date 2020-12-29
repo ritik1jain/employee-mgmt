@@ -57,12 +57,13 @@ class ViewData extends Form {
       if(this.props.user.role === "senior"){
          let  {data}  = await getAllAssets();
          this.setState({ loading: false, assetData:  data  });
-      } else {
-        let {data: assetData} = await getAllTenants(); 
+      } 
+      else {
+        // let {data: assetData} = await getAllTenants(); 
         // let {data1} = await getDistinctOrganisations();
         
-        console.log("hi");
-        this.setState({ loading: false, assetData });
+        // console.log("hi");
+        this.setState({ loading: false});
       }
       
       

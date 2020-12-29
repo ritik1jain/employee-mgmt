@@ -18,6 +18,8 @@ const getAllTenants = require('./routes/getTenants');
 const forgotPassword = require('./routes/forgotPassword');
 const registerTenant = require('./routes/registerTenants');
 const regsiterClient = require('./routes/registerClientUser');
+const deleteHr = require('./routes/deleteHr');
+
 const { dbUriFuncAuth } = require('./services/dbConnectionAuth/dbUri');
 
 // winston.exceptions.handle(
@@ -73,6 +75,7 @@ app.use('/register', registerTenant);
 app.use('/forgotPassword', forgotPassword);
 app.use('/getAllTenants', getAllTenants);
 app.use('/regsiterClient', regsiterClient);
+app.use('/deleteHr', deleteHr);
 
 app.use(error);
 
