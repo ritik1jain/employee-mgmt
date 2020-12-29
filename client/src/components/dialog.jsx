@@ -26,7 +26,7 @@ export default function AlertDialog({ role,onClick }) {
   return (
     <div>
       <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        {role === "senior" ? "Delete Employee" : "Delete HR"}
+        {role === "senior" ? "Delete Hr" : "Delete Employee"}
       </Button>
       <Dialog
         open={open}
